@@ -96,7 +96,6 @@ let type = document.getElementById('type');
 let ajouter = document.getElementById('ajouter');
 let update = document.getElementById('update');
 let promo = document.querySelector('form').promotion
-
 // save data
 let data = [];
 if(localStorage.product != null){
@@ -109,7 +108,7 @@ if(localStorage.product != null){
 update.style.display='none'
 // hide the modale detaile 
 modale.style.display = "none";
-// add product.
+// class info for product
 class newPro {
     constructor(nom,marque,price,date,type,promo){
         this.name = nom,
@@ -121,12 +120,12 @@ class newPro {
     }
     getInfo(){
         return `
-        <p>nom: ${this.name}</p>
-        <p>marque: ${this.marque}</p>
-        <p>price: ${this.price}</p>
-        <p>date: ${this.date}</p>
-        <p>type: ${this.type}</p>
-        <p>promo: ${this.promo}</p>
+        <p>Nom: ${this.name}</p>
+        <p>Marque: ${this.marque}</p>
+        <p>Price: ${this.price}</p>
+        <p>Date: ${this.date}</p>
+        <p>Type: ${this.type}</p>
+        <p>Promo: ${this.promo}</p>
         `
     }
 }
@@ -155,11 +154,13 @@ ajouter.onclick = function(e){
         errorType.style.color = 'red';
     }
     if(checkName() == true && checkMarque() == true && checkPrice() == true && checkType() == true ){
-        // data.push(class newPro {})
         data.push(product)
         localStorage.setItem('product', JSON.stringify(data));
+        // show modale detaile article
         modale.style.display = "block";
+        // show detaile article 
         articleInfo.innerHTML = product.getInfo();
+        // function sort tableau 
         arr = data.sort((a,b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0));
         claerData();
         showData();
@@ -203,9 +204,11 @@ function showData(){
 showData();
 // function delete.
 function deleteData(i){
+    // show modale supprimmer 
     md.style.display = "block" 
     realDelete.setAttribute("onclick", ` deleteRealData(${i})`)
 }
+// delete data 
 function deleteRealData(i){
     data.splice(i,1);
     localStorage.product = JSON.stringify(data);
@@ -227,6 +230,7 @@ function updateData(i){
 }
 update.onclick = function(e){
     e.preventDefault();
+    // affichage the button 'ajouter' and hide the button 'save'. 
     ajouter.style.display='block';
     update.style.display='none';
     i = Number(update.title);
@@ -236,32 +240,9 @@ update.onclick = function(e){
     data[i].date = date.value;
     data[i].type = type.value;
     data[i].promo = promo.value;
-    // up.push(update.title);
     localStorage.setItem('product', JSON.stringify(data));
+    // sort tableau 
     arr = data.sort((a,b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0));
-
     claerData()
-showData();
+    showData();
 }
-
-
-
-
-
-
-// function dataSort(){
-    
-// }
-
-
-
-
-
-
-
-
-
-
-
-
-
