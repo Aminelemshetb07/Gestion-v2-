@@ -39,7 +39,7 @@ let checkMarque = function(){
         return false;
     }else if(myRegex.test(myInput.value) == false){
         nom.setAttribute("class" , "is-invalid form-control "); 
-        myError.innerHTML = "please entrer your name correct!";
+        myError.innerHTML = "please entrer your marque correct!";
         myError.style.color = 'red';
         return false;
     }else{
